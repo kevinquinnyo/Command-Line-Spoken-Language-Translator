@@ -1,0 +1,16 @@
+#!/usr/bin/php
+<?php
+$newarg=array();
+
+$count = sizeOf($argv);
+for ($i=1; $i<$count;$i++)
+{
+	
+	$newarg[$i] = $argv[$i];
+}
+
+$str=implode(" ",$newarg);
+$post=urlencode($str);
+echo $post;
+?>
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+wget -4 -q -O - --user-agent='Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.17) Gecko/20110501 Gentoo Firefox/3.6.17' http://translate.google.com | \
+egrep -o \=[a-z][a-z]\>[A-Z][a-z]* | sed 's/\=//g' | sed 's/>/\ /g'
+echo "Use the 2 letter language code above."
+echo -n "Translate from: "
+read from_lang
+echo -n "Translate to: "
+read to_lang
+echo -n "Translate this: "
+read the_text
+the_text_encoded=`urlencode $the_text`
+url="http://translate.google.com/"
+url2="http://translate.google.com/?sl=$from_lang&tl=$to_lang&js=n&prev=_t&hl=en&ie=UTF-8&layout=2&eotf=1&text=$the_text_encoded&file=#submit"
+#text_regex=`echo $the_text | sed 's/\ /\\ /'`
+#echo $text_regex
+OFS=$IFS; IFS=$'\n'
+curl --silent -4 --user-agent 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.18) Gecko/20110628 Ubuntu/10.04 (lucid) Firefox/3.6.18' $url2 -o - | \
+grep -o title\=\"$the_text\"\ onmouseover\=\"this\.style\.backgroundColor\=\'#.*\'\"\>.*\<\/span\>\<\/span\> | grep -o \>.*\< | sed 's/>//g' | sed 's/<\/span<//g'
+

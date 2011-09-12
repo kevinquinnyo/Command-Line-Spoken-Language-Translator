@@ -1,0 +1,11 @@
+Translates languages from the command line.
+
+It calls "urlencode," which is a php script, so throw that in a directory in your $PATH like /usr/bin
+
+It needs that to create the URL to pass to curl.
+
+Google charges for this API (i think), so I made a poor man's api.  
+
+Do whatever you want with this.  Have fun.  Install all the character sets for your terminal for more functionality.
+
+-kevin quinn
